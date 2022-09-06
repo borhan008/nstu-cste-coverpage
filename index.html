@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title></title>
+    <title>NSTU Assignment Cover Page Online</title>
     <style>
       body {
         font-family: Calibri, sans-serif;
@@ -19,15 +19,20 @@
         margin-bottom: 0.5cm;
       }
       page[size="A4"] {
-        width: 210mm;
-        height: 290mm;
+        width: 200mm;
+        height: 280mm;
+        box-shadow: inset 0px 0px 0px 2px #292672;
+        -webkit-box-shadow: inset 0px 0px 0px 2px #292672;
+        -moz-box-shadow: inset 0px 0px 0px 2px #292672;
+        -o-box-shadow: inset 0px 0px 0px 2px #292672;
+        margin: 5mm;
       }
       .container {
         display: flex;
         justify-content: space-between;
         flex-direction: column;
         width: 90%;
-        height: 90%;
+        height: 100%;
         margin: 0 auto;
       }
       .tc {
@@ -40,8 +45,8 @@
         font-weight: 500;
       }
       .logo {
-        width: 120px;
-        margin-top: 5px;
+        width: 100px;
+        margin-top: 10px;
       }
       .assignment-heading h2,
       .assignment-heading h3,
@@ -84,7 +89,8 @@
       }
 
       form#downloadform {
-        width: 600px;
+        max-width: 600px;
+        width: 95%;
         margin: 0 auto;
         overflow: hidden;
         display: flex;
@@ -95,10 +101,30 @@
         padding: 12px;
         margin-bottom: 10px;
       }
+      form#downloadform h1,
+      h2,
+      h3 {
+        font-weight: 300;
+      }
+      form#downloadform input[type="submit"] {
+        background-color: #292672;
+        color: #fff;
+        font-size: 18px;
+        cursor: pointer;
+      }
+      #loading {
+        text-align: center;
+        padding-top: 10px;
+      }
     </style>
     <script src="html2pdf.js"></script>
   </head>
   <body>
+    <section id="loading" style="display: none">
+      <img src="logo.png" alt="" style="width: 80px" />
+      <h2>Downloading.. Hold a second, pls.</h2>
+      <p>by - <strong>ASH2101008M</strong></p>
+    </section>
     <section id="section-not-needed">
       <section
         style="
@@ -109,6 +135,9 @@
         "
       >
         <img src="logo.png" alt="" width="80px" />
+        <h1 style="font-size: 30px; font-weight: 400">
+          NSTU Cover Page Design
+        </h1>
       </section>
       <form name="form" id="downloadform">
         <h2>Basic Info</h2>
@@ -233,7 +262,7 @@
             <div class="sir" id="sir_info"></div>
           </section>
 
-          <div class="date" id="date_info"></div>
+          <div class="date" id="date_info" style="margin-bottom: 10px"></div>
         </div>
       </page>
     </div>
@@ -276,7 +305,10 @@
       function generatePDF() {
         const element = document.getElementById("assignment-cover");
         // Choose the element and save the PDF for our user.
+        document.title = "Downloading..";
         sec.style.display = "none";
+        document.getElementById("loading").style.display = "block";
+
         var opt = {
           image: { type: "png", quality: 1 },
           html2canvas: {
@@ -289,7 +321,10 @@
         };
         html2pdf().set(opt).from(element).save(`${st_roll.value}.pdf`);
         setTimeout(() => {
+          document.getElementById("loading").style.display = "none";
+
           sec.style.display = "block";
+          document.title = "NSTU Assignment Cover Page Online";
         }, 5000);
       }
     </script>
