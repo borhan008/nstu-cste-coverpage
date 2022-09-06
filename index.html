@@ -5,6 +5,7 @@
     <style>
       body {
         font-family: Calibri, sans-serif;
+        overflow-x: hidden;
       }
       * {
         margin: 0;
@@ -114,14 +115,40 @@
       }
       #loading {
         text-align: center;
-        padding-top: 10px;
+        padding-top: 0px;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+      }
+      #loading {
+        font-weight: 300;
+      }
+      #loading h2 {
+        margin: 0;
+        padding: 10px 0;
+      }
+      @keyframes leaves {
+        0% {
+          transform: scale(1);
+        }
+        100% {
+          transform: scale(1.1);
+        }
+      }
+      #loading img {
+        animation: leaves 1s ease-in-out infinite alternate;
+        -webkit-animation: leaves 1s ease-in-out infinite alternate;
       }
     </style>
     <script src="html2pdf.js"></script>
   </head>
   <body>
     <section id="loading" style="display: none">
-      <img src="logo.png" alt="" style="width: 80px" />
+      <img src="logo.png" style="width: 80px" />
       <h2>Downloading.. Hold a second, pls.</h2>
       <p>by - <strong>ASH2101008M</strong></p>
     </section>
@@ -307,7 +334,7 @@
         // Choose the element and save the PDF for our user.
         document.title = "Downloading..";
         sec.style.display = "none";
-        document.getElementById("loading").style.display = "block";
+        document.getElementById("loading").style.display = "flex";
 
         var opt = {
           image: { type: "png", quality: 1 },
