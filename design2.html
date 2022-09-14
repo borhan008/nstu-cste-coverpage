@@ -184,8 +184,8 @@
         <h1 style="font-size: 30px; font-weight: 400">
           NSTU Assignment Cover Page Generator
         </h1>
-        <p class="text-center">It works on only computer.</p>
         <p class="text-center">Design 2</p>
+        <a href="index.html" style="color: #333">Home</a>
       </section>
       <form name="form" id="downloadform">
         <h2>Basic Info</h2>
@@ -292,6 +292,7 @@
         "
       >
         by - <strong>ASH2101008M</strong>
+        <div id="visits"></div>
       </footer>
     </section>
     <div style="display: none">
@@ -358,15 +359,14 @@
         sir_info.innerHTML = `<h1 style="text-transform:uppercase;">Submitted To:</h1>
 
       <h2 id="sir-name">${prof_name.value}</h2>
-      <h3>${[prof_role.value]},</h3>
-      <h4>${prof_dept.value},</h4>
+      <h3>${[prof_role.value]}</h3>
+      <h4>${prof_dept.value}</h4>
       <h4>Noakhali Science & Technology University</h4>`;
         date_info.innerHTML = `<h2 class="tc">Date: ${date.value}</h2>`;
         generatePDF();
       });
       function generatePDF() {
         const element = document.getElementById("assignment-cover");
-        // Choose the element and save the PDF for our user.
         document.title = "Downloading..";
         sec.style.display = "none";
         document.getElementById("loading").style.display = "flex";
@@ -375,9 +375,11 @@
           image: { type: "png", quality: 1 },
           html2canvas: {
             dpi: 192,
-            scale: 4,
+            scale: 2,
             letterRendering: true,
             useCORS: true,
+            scrollX: 0,
+            scrollY: 0,
           },
           jsPDF: { unit: "in", format: "A4", orientation: "portrait" },
         };
@@ -386,9 +388,20 @@
           document.getElementById("loading").style.display = "none";
 
           sec.style.display = "block";
-          document.title = "NSTU Assignment Cover Page Online";
+          document.title = "NSTU Assignment Cover Page Generator";
         }, 5000);
       }
     </script>
+    <script>
+      function cb(response) {
+        document.getElementById(
+          "visits"
+        ).innerText = `Total Visitors: ${response.value}`;
+      }
+    </script>
+    <script
+      async
+      src="https://api.countapi.xyz/hit/nstucoverpage.netlify.app/visits?callback=cb"
+    ></script>
   </body>
 </html>

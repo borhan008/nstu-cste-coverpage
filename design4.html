@@ -35,7 +35,7 @@
         background-position: center center;
       }
 
-      #container {
+      .container {
         display: flex;
         justify-content: space-between;
         flex-direction: column;
@@ -66,19 +66,18 @@
       }
       section.stduent-sir-info {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: stretch;
-      }
-
-      .student {
-        text-align: right;
-        border-right: 1px solid #000;
+        border: 1px solid #292672;
+        padding: 15px 0px;
+        width: max-content;
+        width: 100%;
+        position: relative;
       }
 
       section.stduent-sir-info > div {
         padding: 0px 15px;
-        flex: 1 1 0;
-        width: 0;
+        width: 100%;
       }
 
       section.stduent-sir-info h1,
@@ -154,6 +153,15 @@
       #section-not-needed {
         width: 100%;
       }
+      section.stduent-sir-info:before {
+        position: absolute;
+        content: "";
+        top: 0;
+        width: 0.5px;
+        background: #292672;
+        bottom: 0;
+        left: 50%;
+      }
     </style>
     <script src="html2pdf.js"></script>
   </head>
@@ -176,8 +184,7 @@
         <h1 style="font-size: 30px; font-weight: 400">
           NSTU Assignment Cover Page Generator
         </h1>
-        <p class="text-center">Design 1</p>
-
+        <p class="text-center">Lab Report</p>
         <a href="index.html" style="color: #333">Home</a>
       </section>
       <form name="form" id="downloadform">
@@ -186,7 +193,14 @@
         <input
           type="text"
           name=""
-          placeholder="Assignment Title"
+          placeholder="Lab Report On"
+          id="labreport"
+          required
+        />
+        <input
+          type="text"
+          name=""
+          placeholder="Course Title"
           id="title"
           required
         />
@@ -290,21 +304,39 @@
     </section>
     <div style="display: none">
       <page size="A4" id="assignment-cover">
-        <div id="container">
+        <div class="container">
           <section class="header tc">
             <img src="logo.png" alt="" class="logo" />
             <h2 class="tc heading">Noakhali Science & Technology University</h2>
+          </section>
+          <section class="assignment-heading tc">
+            <h2>Lab Report On:</h2>
+            <h2 id="labreportname" style="color: #333">Lab Report On</h2>
           </section>
           <section class="assignment-heading" id="assignemnt_heading">
             <h2>Assignment Title: Hello world</h2>
             <h4>Course Code: CSTE1101</h4>
           </section>
           <section class="stduent-sir-info">
-            <div class="student" id="st_info"></div>
-            <div class="sir" id="sir_info"></div>
+            <div class="student" id="st_info">
+              <h1 style="text-transform: uppercase">Submitted By:</h1>
+              <h2>NSTU Cover Page Generator</h2>
+              <h3>Roll: ${st_roll.value}</h3>
+              <h3>Year:${st_yr.value} Term:${st_term.value}</h3>
+              <h4>${st_dept.value}</h4>
+            </div>
+            <div class="sir" id="sir_info">
+              <h1 style="text-transform: uppercase">Submitted By:</h1>
+              <h2>${st_name.value}</h2>
+              <h3>Roll: ${st_roll.value}</h3>
+              <h3>Year:${st_yr.value} Term:${st_term.value}</h3>
+              <h4>${st_dept.value}</h4>
+            </div>
           </section>
 
-          <div class="date" id="date_info" style="margin-bottom: 10px"></div>
+          <div class="date" id="date_info" style="margin-bottom: 10px">
+            <h2 class="tc">Date of Submission: ${date.value}</h2>
+          </div>
         </div>
       </page>
     </div>
@@ -316,6 +348,7 @@
       const date = document.querySelector("#date");
       const st_name = document.querySelector("#st_name");
       const st_yr = document.querySelector("#st_yr");
+      const labreport = document.querySelector("#labreport");
       const st_term = document.querySelector("#st_term");
       const st_roll = document.querySelector("#st_roll");
       const st_dept = document.querySelector("#st_dept");
@@ -326,9 +359,10 @@
       const st_info = document.querySelector("#st_info");
       const sir_info = document.querySelector("#sir_info");
       const date_info = document.querySelector("#date_info");
+      const labreportname = document.querySelector("#labreportname");
       form.addEventListener("submit", function (e) {
         e.preventDefault();
-        assignemnt_heading.innerHTML = ` <h2>Assignment Title: ${title.value}</h2><h4>Course Code: ${code.value}</h4>`;
+        assignemnt_heading.innerHTML = ` <h2>Course Title: <span style="color: #333">${title.value}</span></h2><h4>Course Code: <span style="color: #333">${code.value}</span></h4>`;
         st_info.innerHTML = `<h1 style="text-transform:uppercase;">Submitted By:</h1>
                     <h2>${st_name.value}</h2>
                     <h3>Roll: ${st_roll.value}</h3>
@@ -339,13 +373,15 @@
 
       <h2 id="sir-name">${prof_name.value}</h2>
       <h3>${[prof_role.value]}</h3>
-      <h4>${prof_dept.value}</h4>
+      <h3>Department of ${prof_dept.value}</h3>
       <h4>Noakhali Science & Technology University</h4>`;
+        labreportname.innerHTML = labreport.value;
         date_info.innerHTML = `<h2 class="tc">Date: ${date.value}</h2>`;
         generatePDF();
       });
       function generatePDF() {
         const element = document.getElementById("assignment-cover");
+        // Choose the element and save the PDF for our user.
         document.title = "Downloading..";
         sec.style.display = "none";
         document.getElementById("loading").style.display = "flex";
@@ -353,14 +389,13 @@
         var opt = {
           image: { type: "png", quality: 1 },
           html2canvas: {
-            dpi: 100,
+            dpi: 192,
             scale: 2,
             letterRendering: true,
             useCORS: true,
             scrollX: 0,
             scrollY: 0,
           },
-
           jsPDF: { unit: "in", format: "A4", orientation: "portrait" },
         };
         html2pdf().set(opt).from(element).save(`${st_roll.value}.pdf`);
@@ -372,17 +407,6 @@
         }, 5000);
       }
     </script>
-    <script>
-      function cb(response) {
-        document.getElementById(
-          "visits"
-        ).innerText = `Total Visitors: ${response.value}`;
-      }
-    </script>
-    <script
-      async
-      src="https://api.countapi.xyz/hit/nstucoverpage.netlify.app/visits?callback=cb"
-    ></script>
     <script>
       function cb(response) {
         document.getElementById(

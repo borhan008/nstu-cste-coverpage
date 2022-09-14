@@ -31,7 +31,7 @@
               <h1 style="font-size: 30px; font-weight: 400">
                 NSTU Assignment Cover Page Generator
               </h1>
-              <strong class="text-center">It works on only computer.</strong>
+              <strong class="text-center">A little bit slow on mobile.</strong>
             </section>       
       <div class="grid md:grid-cols-2 gap-4 grid-cols-1">
         <a href="design1.html" class="text-center border p-4">
@@ -41,6 +41,14 @@
         <a href="design2.html" class="text-center border p-4">
           <img src="images/design2.png" alt="" class="w-4/5 mx-auto" />
           <h2 class="text-2xl pt-4">Design 2</h2>
+        </a>
+        <a href="design3.html" class="text-center border p-4">
+          <img src="images/design2.png" alt="" class="w-4/5 mx-auto" />
+          <h2 class="text-2xl pt-4">Design 2.2</h2>
+        </a>
+        <a href="design4.html" class="text-center border p-4">
+          <img src="images/design4.png" alt="" class="w-4/5 mx-auto" />
+          <h2 class="text-2xl pt-4">Lab Report</h2>
         </a>
       </div>
       <footer
@@ -53,7 +61,20 @@
         "
       >
         by - <strong>ASH2101008M</strong>
+        <div id="visits"></div>
       </footer>
+     
     </div>
+    <script>
+      function cb(response) {
+        document.getElementById(
+          "visits"
+        ).innerText = `Total Visitors: ${response.value}`;
+      }
+    </script>
+    <script
+      async
+      src="https://api.countapi.xyz/hit/nstucoverpage.netlify.app/visits?callback=cb"
+    ></script>
   </body>
 </html>
