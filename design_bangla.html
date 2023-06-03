@@ -2,6 +2,11 @@
 <html>
   <head>
     <title>NSTU Assignment Cover Page Generator</title>
+    <link
+      href="https://fonts.maateen.me/ekushey-lohit/font.css"
+      rel="stylesheet"
+    />
+
     <style>
       body {
         font-family: Calibri, sans-serif;
@@ -56,12 +61,15 @@
         width: 100px;
         margin-top: 10px;
       }
+      #assignment-cover {
+        font-family: "EkusheyLohit", sans-serif;
+      }
       .assignment-heading h2,
       .assignment-heading h3,
       .assignment-heading h4,
       .date h2 {
         color: #292672;
-        font-size: 28px;
+        font-size: 21px;
         font-weight: 500;
       }
       section.stduent-sir-info {
@@ -86,13 +94,16 @@
       section.stduent-sir-info h4,
       section.stduent-sir-info h5 {
         font-weight: 400;
+        font-size: 18px;
       }
       section.stduent-sir-info h2 {
         color: #000;
+        font-size: 18px;
       }
       section.stduent-sir-info h1 {
         color: #292672;
         margin-bottom: 5px;
+        font-size: 20px;
       }
 
       form#downloadform {
@@ -163,11 +174,11 @@
         left: 50%;
       }
     </style>
-    <script src="../html2pdf.js"></script>
+    <script src="html2pdf.js"></script>
   </head>
   <body>
     <section id="loading" style="display: none">
-      <img src="../logo.png" style="width: 80px" />
+      <img src="logo.png" style="width: 80px" />
       <h2>Downloading.. Hold a second, pls.</h2>
       <p>by - <strong>ASH2101008M</strong></p>
     </section>
@@ -180,12 +191,14 @@
           margin-bottom: 20px;
         "
       >
-        <img src="../logo.png" alt="" width="80px" />
+        <img src="logo.png" alt="" width="80px" />
         <h1 style="font-size: 30px; font-weight: 400">
           NSTU Assignment Cover Page Generator
         </h1>
-        <p class="text-center">Lab Report</p>
-        <a href="../index.html" style="color: #333">Home</a>
+        <a href="index.html" style="color: #333">Home</a>
+
+        <p class="text-center" style="margin-top: 10px">বাংলা ভার্সন</p>
+        <p>সব বাংলায় লিখুন ।</p>
       </section>
       <form name="form" id="downloadform">
         <h2>Basic Info</h2>
@@ -193,17 +206,8 @@
         <input
           type="text"
           name=""
-          placeholder="Lab Report On"
-          id="labreport"
-          value="Electronic Devices and Circuits"
-          required
-        />
-        <input
-          type="text"
-          name=""
-          placeholder="Course Title"
+          placeholder="Assignment Title"
           id="title"
-          value="Electronic Devices and Circuits Lab"
           required
         />
         <input
@@ -212,7 +216,6 @@
           id="code"
           placeholder="Course Code"
           id=""
-          value="CSTE 1208"
           required
         />
         <input
@@ -221,7 +224,6 @@
           id="date"
           placeholder="Date"
           id=""
-          value="04-04-2023"
           required
         />
         <h2>Student Info</h2>
@@ -231,7 +233,6 @@
           id="st_name"
           placeholder="Student Name"
           id=""
-          value="Mohammad Borhan Uddin"
           required
         />
         <input
@@ -240,7 +241,6 @@
           id="st_roll"
           placeholder="Roll"
           id=""
-          value="ASH2101008M"
           required
         />
         <input
@@ -249,7 +249,6 @@
           id="st_yr"
           placeholder="Year"
           id=""
-          value="01"
           required
         />
         <input
@@ -259,7 +258,6 @@
           placeholder="Term"
           id=""
           required
-          value="02"
         />
         <input
           type="text"
@@ -268,7 +266,6 @@
           placeholder="Department"
           id=""
           required
-          value="Computer Science & Telecommunication Engineering"
         />
         <h2>Professor Info</h2>
         <input
@@ -276,7 +273,6 @@
           name=""
           id="prof_name"
           placeholder="Name"
-          value="Dr. Ashadun Nobi"
           id=""
           required
         />
@@ -285,7 +281,6 @@
           name=""
           id="prof_role"
           placeholder="Role"
-          value="Professor & Chairman"
           id=""
           required
         />
@@ -294,7 +289,6 @@
           name=""
           id="prof_dept"
           placeholder="Department"
-          value="Computer Science & Telecommunication Engineering"
           id=""
           required
         />
@@ -323,15 +317,13 @@
       <page size="A4" id="assignment-cover">
         <div class="container">
           <section class="header tc">
-            <img src="../logo.png" alt="" class="logo" />
-            <h2 class="tc heading">Noakhali Science & Technology University</h2>
-          </section>
-          <section class="assignment-heading tc">
-            <h2>Lab Report On:</h2>
-            <h2 id="labreportname" style="color: #333">Lab Report On</h2>
+            <img src="logo.png" alt="" class="logo" />
+            <h2 class="tc heading">
+              নোয়াখালী বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়
+            </h2>
           </section>
           <section class="assignment-heading" id="assignemnt_heading">
-            <h2>Assignment Title: Hello world</h2>
+            <h2>শিরোনাম: Hello world</h2>
             <h4>Course Code: CSTE1101</h4>
           </section>
           <section class="stduent-sir-info">
@@ -352,7 +344,7 @@
           </section>
 
           <div class="date" id="date_info" style="margin-bottom: 10px">
-            <h2 class="tc">Date of Submission: ${date.value}</h2>
+            <h2 class="tc">তারিখ: ${date.value}</h2>
           </div>
         </div>
       </page>
@@ -365,7 +357,6 @@
       const date = document.querySelector("#date");
       const st_name = document.querySelector("#st_name");
       const st_yr = document.querySelector("#st_yr");
-      const labreport = document.querySelector("#labreport");
       const st_term = document.querySelector("#st_term");
       const st_roll = document.querySelector("#st_roll");
       const st_dept = document.querySelector("#st_dept");
@@ -376,38 +367,35 @@
       const st_info = document.querySelector("#st_info");
       const sir_info = document.querySelector("#sir_info");
       const date_info = document.querySelector("#date_info");
-      const labreportname = document.querySelector("#labreportname");
       form.addEventListener("submit", function (e) {
         e.preventDefault();
-        assignemnt_heading.innerHTML = ` <h2>Course Title: <span style="color: #333">${title.value}</span></h2><h4>Course Code: <span style="color: #333">${code.value}</span></h4>`;
-        st_info.innerHTML = `<h1 style="text-transform:uppercase;">Submitted By:</h1>
+        assignemnt_heading.innerHTML = `<h2>শিরোনাম: ${title.value}</h2><h4>কোর্স কোড: ${code.value}</h4>`;
+        st_info.innerHTML = `<h1 style="text-transform:uppercase;">উপস্থাপনায়:</h1>
                     <h2>${st_name.value}</h2>
-                    <h3>Roll: ${st_roll.value}</h3>
-                    <h3>Year:${st_yr.value} Term:${st_term.value}</h3>
-                    <h4>${st_dept.value}</h4>`;
+                    <h3>রোল: ${st_roll.value}</h3>
+                    <h3>বর্ষ:${st_yr.value} টার্ম:${st_term.value}</h3>
+                    <h4>বিভাগ:${st_dept.value}</h4>`;
 
-        sir_info.innerHTML = `<h1 style="text-transform:uppercase;">Submitted To:</h1>
+        sir_info.innerHTML = `<h1 style="text-transform:uppercase;">তত্ত্বাবধায়ক:</h1>
 
       <h2 id="sir-name">${prof_name.value}</h2>
       <h3>${[prof_role.value]}</h3>
-      <h3>Department of ${prof_dept.value}</h3>
-      <h4>Noakhali Science & Technology University</h4>`;
-        labreportname.innerHTML = labreport.value;
-        date_info.innerHTML = `<h2 class="tc">Date: ${date.value}</h2>`;
+      <h4>${prof_dept.value}</h4>
+      <h4>নোয়াখালী বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়</h4>`;
+        date_info.innerHTML = `<h2 class="tc">তারিখ: ${date.value}</h2>`;
         generatePDF();
       });
       function generatePDF() {
         const element = document.getElementById("assignment-cover");
-        // Choose the element and save the PDF for our user.
         document.title = "Downloading..";
         sec.style.display = "none";
         document.getElementById("loading").style.display = "flex";
 
         var opt = {
-          image: { type: "png", quality: 1 },
+          image: { type: "png", quality: 5 },
           html2canvas: {
-            dpi: 192,
-            scale: 2,
+            dpi: 1,
+            scale: 1.45,
             letterRendering: true,
             useCORS: true,
             scrollX: 0,
@@ -420,7 +408,7 @@
           document.getElementById("loading").style.display = "none";
 
           sec.style.display = "block";
-          document.title = "NSTU Assignment Cover Page Online";
+          document.title = "NSTU Assignment Cover Page Generator";
         }, 5000);
       }
     </script>

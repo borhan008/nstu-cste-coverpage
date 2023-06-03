@@ -284,8 +284,12 @@
           margin: 0 auto;
         "
       >
-        by - <strong>ASH2101008M</strong>
-        <div id="visits"></div>
+        by -
+        <a
+          href="https://www.facebook.com/knowinglyunknown/"
+          class="font-bold text-blue-900 underline"
+          >ASH2101008M</a
+        >
       </footer>
     </section>
     <div style="display: none">
@@ -351,16 +355,15 @@
         document.getElementById("loading").style.display = "flex";
 
         var opt = {
-          image: { type: "png", quality: 1 },
+          image: { type: "png", quality: 5 },
           html2canvas: {
-            dpi: 100,
-            scale: 2,
+            dpi: 1,
+            scale: 1.45,
             letterRendering: true,
             useCORS: true,
             scrollX: 0,
             scrollY: 0,
           },
-
           jsPDF: { unit: "in", format: "A4", orientation: "portrait" },
         };
         html2pdf().set(opt).from(element).save(`${st_roll.value}.pdf`);
@@ -372,27 +375,5 @@
         }, 5000);
       }
     </script>
-    <script>
-      function cb(response) {
-        document.getElementById(
-          "visits"
-        ).innerText = `Total Visitors: ${response.value}`;
-      }
-    </script>
-    <script
-      async
-      src="https://api.countapi.xyz/hit/nstucoverpage.netlify.app/visits?callback=cb"
-    ></script>
-    <script>
-      function cb(response) {
-        document.getElementById(
-          "visits"
-        ).innerText = `Total Visitors: ${response.value}`;
-      }
-    </script>
-    <script
-      async
-      src="https://api.countapi.xyz/hit/nstucoverpage.netlify.app/visits?callback=cb"
-    ></script>
   </body>
 </html>
